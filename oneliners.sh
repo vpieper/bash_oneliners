@@ -40,3 +40,61 @@ find $1 -type f -print0 | xargs -0 stat --format '%Y :%y %n' | sort -nr | cut -d
 #delete mailq mails with MAILER search tag
 mailq | grep "MAILER" |cut -d' ' -f1|postsuper -d -
 
+#opvragen HTTP headers
+====CURL====
+curl -I -L 0wnd.nl
+curl -Ls -o /dev/null -w %{url_effective} http://www.domein.nl/
+curl -i http://www.domein.nl/
+
+====GET (libwwwperl):====
+
+root@evenstar { ~ }$ GET -S -d -e http://google.com
+GET http://google.com
+302 Found
+Cache-Control: private
+Connection: close
+Date: Mon, 30 Jan 2017 12:26:09 GMT
+Location: http://www.google.nl/?gfe_rd=cr&ei=4TCPWMKwCbCk8wffjomgDg
+Content-Length: 258
+Content-Type: text/html; charset=UTF-8
+Client-Date: Mon, 30 Jan 2017 12:26:09 GMT
+Client-Peer: 172.217.17.46:80
+Client-Response-Num: 1
+Title: 302 Moved
+
+GET http://www.google.nl/?gfe_rd=cr&ei=4TCPWMKwCbCk8wffjomgDg
+200 OK
+Cache-Control: private, max-age=0
+Connection: close
+Date: Mon, 30 Jan 2017 12:26:09 GMT
+Accept-Ranges: none
+Server: gws
+Vary: Accept-Encoding
+Content-Type: text/html; charset=ISO-8859-1
+Expires: -1
+Client-Date: Mon, 30 Jan 2017 12:26:09 GMT
+Client-Peer: 172.217.17.35:80
+Client-Response-Num: 1
+Link: </images/branding/product/ico/googleg_lodp.ico>; rel="shortcut icon"
+P3P: CP="This is not a P3P policy! See https://www.google.com/support/accounts/answer/151657?hl=en for more info."
+Set-Cookie: NID=95=RbT6i6k9XEqzTYOdRr15R1rZfrdSAEMlnyTjJ8h9gyYmmoz-rC_ttZSXUaT5ptQQiDIr0n99PVU69Nzy0pcBQTDNS2j4CNjAH-6g_H-rV8vVWIlEGjnHaABUbhOtJ6G3; expires=Tue, 01-Aug-2017 12:26:09 GMT; path=/; domain=.google.nl; HttpOnly
+Title: Google
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+
+$ GET -S -d -e http://google.com
+GET http://google.com --> 301 Moved Permanently
+GET http://www.google.com/ --> 302 Found
+GET http://www.google.ca/ --> 200 OK
+Cache-Control: private, max-age=0
+Connection: close
+Date: Sat, 19 Jun 2010 04:11:01 GMT
+Server: gws
+Content-Type: text/html; charset=ISO-8859-1
+Expires: -1
+Client-Date: Sat, 19 Jun 2010 04:11:01 GMT
+Client-Peer: 74.125.155.105:80
+Client-Response-Num: 1
+Set-Cookie: PREF=ID=a1925ca9f8af11b9:TM=1276920661:LM=1276920661:S=ULFrHqOiFDDzDVFB; expires=Mon, 18-Jun-2012 04:11:01 GMT; path=/; domain=.google.ca
+Title: Google
+X-XSS-Protection: 1; mode=block
