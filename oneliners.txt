@@ -23,6 +23,7 @@ tail -n250 /var/www/domains/domain.nl/logs/combined_log | cut -d " " -f1 | sort 
 #scrape website and download result
 /usr/bin/elinks "http://website.tld/file.xml" |  grep -o 'http:[^"]*' | grep mp3 | xargs wget -k -q -P /storage/
 
+# download any number of files from url
 for i in {50000..60000}; do wget -O $i.jpg "http://www.website.tld/images/script/image.php?977="$i; done
 
 # upgrade all pypi packages:
