@@ -1,3 +1,6 @@
+# filter removed Debian packagaes from logfile
+grep Remove /var/log/apt/history.log | tail -1 | sed -e 's|Remove: ||g' -e 's|([^)]*)||g' -e 's|:[^ ]* ||g' -e 's|,||g'
+
 #logfile manipulation and firewall entries
 for ip in `tail combined_log -n 100 | grep "POST /administrator/index.php HTTP/1.1" |grep " 200 "|cut -d' ' -f1|grep -i -v ":" |sort |uniq`; do echo "iptables -I FAIL2BAN -s $ip -j DROP"; done
 
